@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpwu5epxx2pqx"]
+
+[ext_resource type="Script" path="res://scripts/nivel.gd" id="1_l3bj5"]
+[ext_resource type="PackedScene" uid="uid://6jxq4ql2i06s" path="res://escenas/personaje.tscn" id="2_a67i5"]
+[ext_resource type="Script" path="res://scripts/oponente.gd" id="3_l2lcm"]
+[ext_resource type="PackedScene" uid="uid://bdhlcch8j25ho" path="res://escenas/bola.tscn" id="4_x64cd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qhw7"]
+size = Vector2(1920, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1e86"]
+size = Vector2(30, 1080)
+
+[sub_resource type="FontVariation" id="FontVariation_oif1j"]
+
+[sub_resource type="FontVariation" id="FontVariation_utl52"]
+
+[node name="nivel" type="Node2D"]
+script = ExtResource("1_l3bj5")
+
+[node name="paredSuperior" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paredSuperior"]
+position = Vector2(960, -15)
+shape = SubResource("RectangleShape2D_0qhw7")
+
+[node name="paredInferior" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paredInferior"]
+position = Vector2(960, 1095)
+shape = SubResource("RectangleShape2D_0qhw7")
+
+[node name="arcoIzquierda" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="arcoIzquierda"]
+position = Vector2(-15, 540)
+shape = SubResource("RectangleShape2D_f1e86")
+
+[node name="arcoDerecha" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="arcoDerecha"]
+position = Vector2(1935, 540)
+shape = SubResource("RectangleShape2D_f1e86")
+
+[node name="personaje" parent="." instance=ExtResource("2_a67i5")]
+position = Vector2(50, 540)
+
+[node name="Oponente" parent="." instance=ExtResource("2_a67i5")]
+position = Vector2(1870, 540)
+script = ExtResource("3_l2lcm")
+
+[node name="bola" parent="." instance=ExtResource("4_x64cd")]
+position = Vector2(960, 540)
+
+[node name="marcadorJugador" type="Label" parent="."]
+offset_left = -480.0
+offset_top = -270.0
+offset_right = 1440.0
+offset_bottom = 810.0
+theme_override_colors/font_color = Color(1, 0.941176, 0.933333, 1)
+theme_override_fonts/font = SubResource("FontVariation_oif1j")
+theme_override_font_sizes/font_size = 50
+text = "Marcador
+ Jugador"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="marcadorEnemigo" type="Label" parent="."]
+offset_left = 480.0
+offset_top = -270.0
+offset_right = 2400.0
+offset_bottom = 810.0
+theme_override_fonts/font = SubResource("FontVariation_utl52")
+theme_override_font_sizes/font_size = 50
+text = "Marcador 
+Enemigo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="restartTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="arcoIzquierda" to="." method="_on_arco_izquierda_body_entered"]
+[connection signal="body_entered" from="arcoDerecha" to="." method="_on_arco_derecha_body_entered"]
+[connection signal="timeout" from="restartTimer" to="bola" method="_on_restart_timer_timeout"]

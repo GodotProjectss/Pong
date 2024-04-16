@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdhlcch8j25ho"]
+
+[ext_resource type="Script" path="res://scripts/bola.gd" id="1_re10a"]
+[ext_resource type="Texture2D" uid="uid://b5v4k6ui44dgl" path="res://sprites/pelota.png" id="1_w8xx3"]
+[ext_resource type="AudioStream" uid="uid://dx2uqk0jvxcwc" path="res://audio/ke_1.mp3" id="3_q5afo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vsw7f"]
+radius = 16.0
+
+[node name="bola" type="CharacterBody2D"]
+position = Vector2(74, 51)
+script = ExtResource("1_re10a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_w8xx3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vsw7f")
+
+[node name="audioCollsion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_q5afo")

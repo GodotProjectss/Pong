@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://6jxq4ql2i06s"]
+
+[ext_resource type="Script" path="res://scripts/personaje.gd" id="1_awyda"]
+[ext_resource type="Texture2D" uid="uid://byv1ah7w4tt6g" path="res://sprites/papa.png" id="1_s4eh8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1eakt"]
+size = Vector2(20, 200)
+
+[node name="Personaje" type="CharacterBody2D"]
+script = ExtResource("1_awyda")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(6.78125, 12.4375)
+texture = ExtResource("1_s4eh8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1eakt")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
